@@ -5,7 +5,6 @@ const Pet = mongoose.model(
     'Pet',
     new Schema({
         name: {
-            
             type: String,
             required: true
         },
