@@ -19,7 +19,7 @@ const imageStorage = multer.diskStorage({
 
     },
     filename: function (req, file, cb){ //Save img with updated data
-        cb(null, Date.now() + path.extname(file.originalname)) //Return 2656594532564.jpg 
+        cb(null, Date.now() + String(Math.floor(Math.random() *100)) + path.extname(file.originalname)) //Return 2656594532564.jpg 
     }
 }) 
 
