@@ -33,6 +33,7 @@ module.exports = class PetController {
             res.status(422).json({ message: '!A imagem é obrigatória!' })
             return
         }
+        
         //Get pet owner
         const token = getToken(req)
         const user = await getUserByToken(token)
