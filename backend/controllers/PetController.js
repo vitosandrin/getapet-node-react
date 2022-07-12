@@ -9,16 +9,17 @@ module.exports = class PetController {
     //Create Pet
     static async create(req, res) {
         const { name, age, weight, color } = req.body
-        const images = req.files
+        const images = req.files 
         const available = true
-
+        console.log(images)
+        
         //Validation
         if (!name) {
             res.status(422).json({ message: '!O nome é obrigatório!' })
             return
         }
         if (!age) {
-            res.status(422).json({ message: '!A idade é obrigatório!' })
+            res.status(422).json({ message: '!A idade é obrigatória!' })
             return
         }
         if (!weight) {
@@ -29,7 +30,7 @@ module.exports = class PetController {
             res.status(422).json({ message: '!A cor é obrigatória!' })
             return
         }
-        if (!images.length === 0) {
+        if (!images.length == 0) {
             res.status(422).json({ message: '!A imagem é obrigatória!' })
             return
         }

@@ -46,7 +46,7 @@ module.exports = class UserController {
         }
 
         //Create password
-        const salt = await bcrypt.genSalt(12)
+        const salt = await bcrypt.genSalt(12) //12 char a mais
         const passwordHash = await bcrypt.hash(password, salt)
 
         //Create User
@@ -108,18 +108,18 @@ module.exports = class UserController {
         //console.log(req.headers.authorization)
 
         if (req.headers.authorization) {
-
             const token = getToken(req)
-            const decoded = jwt.verify(token, 'nossosecret')
+            const decoded = jwt.verify(token, 'nossosecret') //Decode token
 
             currentUser = await User.findById(decoded.id)
+            /*
+            Extract data from user /helpers/create-user-token.js based in "id"
+            setted on jwt.sign
+            */
 
-            currentUser.password = undefined
-
+            currentUser.password = undefined //Hidden password
         } else {
-
             currentUser = null
-
         }
 
         res.status(200).send(currentUser)
