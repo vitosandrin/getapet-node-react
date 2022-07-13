@@ -2,9 +2,12 @@ const User = require('../models/User')
 const jwt = require('jsonwebtoken')
 const bcrypt = require('bcrypt')
 
+//Helpers
 const createUserToken = require('../helpers/create-user-token')
 const getToken = require('../helpers/get-token')
 const getUserByToken = require('../helpers/get-user-by-token')
+const ObjectId = require('mongoose').Types.ObjectId
+
 
 module.exports = class UserController {
 
@@ -127,9 +130,16 @@ module.exports = class UserController {
 
     static async getUserById(req, res) {
         const id = req.params.id
+        
+        //Verify if id is valid
+        if (!ObjectId.isValid(id)) {
+            res.status(422).json({ message: 'ID inválido!' })
+            return
+        }
+        
         //Get user by id                Dont take password                     
         const user = await User.findById(id).select('-password')
-
+        
         if (!user) {
             res.status(422).json({
                 message: '!Usuário não encontrado!'

@@ -3,6 +3,7 @@ const Pet = require('../models/Pet')
 //Helpers
 const getToken = require('../helpers/get-token')
 const getUserByToken = require('../helpers/get-user-by-token')
+const ObjectId = require('mongoose').Types.ObjectId
 
 module.exports = class PetController {
 
@@ -68,5 +69,60 @@ module.exports = class PetController {
         } catch (error) {
             res.status(500).json({ message: error })
         }
+    }
+
+    //Get all pets
+    static async getAll(req, res) {
+        const pets = await Pet.find().sort('-createdAt')
+        //find() - get all pets .sort('-createdAt) - ordena do mais novo p mais velho
+
+        res.status(200).json({
+            pets: pets
+        })
+    }
+
+    //Get all the pets I put for donation
+    static async getAllUserPets(req, res) {
+
+        //Get user from token
+        const token = getToken(req)
+        const user = await getUserByToken(token)
+
+        const pets = await Pet.find({ 'user._id': user._id }).sort("-createAt")
+
+        res.status(200).json({ pets })
+    }
+
+    //Get all the pets I want to adopt
+    static async getAllUserAdoptions(req, res) {
+        //Get user from token
+        const token = getToken(req)
+        const user = await getUserByToken(token)
+
+        const pets = await Pet.find({ 'adopter._id': user._id }).sort("-createAt")
+
+        res.status(200).json({ pets })
+    }
+
+    //Route to get info from pet
+    static async getPetById(req, res) {
+
+        const id = req.params.id
+
+        //Verify if id is valid
+        if (!ObjectId.isValid(id)) {
+            res.status(422).json({ message: 'ID inválido!' })
+            return
+        }
+        //
+        const pet = await Pet.findOne({ _id: id })
+
+        if (!pet) {
+            res.status(404).json({ message: "Pet não encontrado!" })
+            return
+        }
+
+        res.status(200).json({ pet: pet })
+
     }
 }
