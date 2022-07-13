@@ -210,7 +210,7 @@ module.exports = class UserController {
             //Return user updated data
             await User.findOneAndUpdate(
                 { _id: user._id }, //Update by id
-                { $set: user },
+                { $set: user }, //Param for data 
                 { new: true } //Param update 
             )
 

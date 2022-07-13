@@ -8,7 +8,7 @@
     "start": "nodemon ./index.js localhost 5000"
   },
   "keywords": [],
-  "author": "",
+  "author": "Vito Sandrin",
   "license": "ISC",
   "dependencies": {
     "bcrypt": "^5.0.1",

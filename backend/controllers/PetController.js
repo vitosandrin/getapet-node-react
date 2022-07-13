@@ -9,10 +9,10 @@ module.exports = class PetController {
     //Create Pet
     static async create(req, res) {
         const { name, age, weight, color } = req.body
-        const images = req.files 
+        const images = req.files
         const available = true
         console.log(images)
-        
+
         //Validation
         if (!name) {
             res.status(422).json({ message: '!O nome é obrigatório!' })
@@ -30,11 +30,11 @@ module.exports = class PetController {
             res.status(422).json({ message: '!A cor é obrigatória!' })
             return
         }
-        if (!images.length == 0) {
+        if (images.length === 0) {
             res.status(422).json({ message: '!A imagem é obrigatória!' })
             return
         }
-        
+
         //Get pet owner
         const token = getToken(req)
         const user = await getUserByToken(token)
@@ -55,18 +55,18 @@ module.exports = class PetController {
             }
         })
 
-        images.map((image)=>{
+        images.map((image) => {
             pet.images.push(image.filename)
         })
 
-        try{
+        try {
             const newPet = await pet.save()
             res.status(201).json({
-                message:'!Pet cadastrado com sucesso!',
+                message: '!Pet cadastrado com sucesso!',
                 newPet
             })
-        }catch(error){
-            res.status(500).json({message: error})
+        } catch (error) {
+            res.status(500).json({ message: error })
         }
     }
 }

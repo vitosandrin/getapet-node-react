@@ -6,7 +6,7 @@ const checkToken = (req, res, next) => {
 
     if(!req.headers.authorization) {
         return res.status(401).json({message: '!Acesso Negado!'})
-    }
+    } //Check if req from authorization
 
     const token = getToken(req)
 
@@ -16,7 +16,7 @@ const checkToken = (req, res, next) => {
 
     try {
         const verified = jwt.verify(token, 'nossosecret')
-        req.user = verified
+        req.user = verified 
         next()
     } catch(err) {
         return res.status(400).json({message: '!Token inválido!'})
