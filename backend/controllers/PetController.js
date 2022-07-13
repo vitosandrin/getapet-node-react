@@ -163,7 +163,7 @@ module.exports = class PetController {
     static async updatePet(req, res) {
         const id = req.params.id
         const { name, age, weight, color, available } = req.body
-        
+
         //Data pet update
         const updatedData = {}
         //Images upload
@@ -234,14 +234,13 @@ module.exports = class PetController {
     }
 
     //Schedule a visit
-    static async schedule(req, res){
-
+    static async schedule(req, res) {
         const id = req.params.id
 
         //Check if pet exists
-        const pet = await Pet.findOne({_id: id})
-        if(!pet) {
-            res.status(404).json({message: '!Pet não encontrado!'})
+        const pet = await Pet.findOne({ _id: id })
+        if (!pet) {
+            res.status(404).json({ message: '!Pet não encontrado!' })
             return
         }
 
@@ -249,15 +248,15 @@ module.exports = class PetController {
         const token = getToken(req)
         const user = await getUserByToken(token)
         //Compare user.id && pet.user.id
-        if(pet.user._id.equals(user._id)) {
-            res.status(422).json({message: '!Você não pode agendar uma visita com seu proprio Pet!'})
+        if (pet.user._id.equals(user._id)) {
+            res.status(422).json({ message: '!Você não pode agendar uma visita com seu proprio Pet!' })
             return
         }
 
         //Check if the user has already scheduled a visit
-        if(pet.adopter) {
-            if(pet.adopter._id.equals(user._id)){
-                res.status(422).json({message: 'Você já agendou uma visita para esse Pet!'})
+        if (pet.adopter) {
+            if (pet.adopter._id.equals(user._id)) {
+                res.status(422).json({ message: 'Você já agendou uma visita para esse Pet!' })
                 return
             }
         }
