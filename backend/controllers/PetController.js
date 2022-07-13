@@ -12,7 +12,7 @@ module.exports = class PetController {
         const { name, age, weight, color } = req.body
         const images = req.files
         const available = true
-        console.log(images)
+        //console.log(images)
 
         //Validation
         if (!name) {
@@ -71,7 +71,7 @@ module.exports = class PetController {
         }
     }
 
-    //Get all pets
+    //Get all the pets
     static async getAll(req, res) {
         const pets = await Pet.find().sort('-createdAt')
         //find() - get all pets .sort('-createdAt) - ordena do mais novo p mais velho
@@ -114,15 +114,49 @@ module.exports = class PetController {
             res.status(422).json({ message: 'ID inválido!' })
             return
         }
-        //
+        //Check if pet exists
         const pet = await Pet.findOne({ _id: id })
 
         if (!pet) {
-            res.status(404).json({ message: "Pet não encontrado!" })
+            res.status(404).json({ message: 'Pet não encontrado!' })
             return
         }
 
         res.status(200).json({ pet: pet })
 
     }
+
+    //Route to delete pets
+    static async removePetById(req, res) {
+        const id = req.params.id
+
+        //Verify if id is valid
+        if (!ObjectId.isValid(id)) {
+            res.status(422).json({ message: 'ID inválido!' })
+            return
+        }
+
+        //Check if pet exists
+        const pet = await Pet.findOne({ _id: id })
+
+        if (!pet) {
+            res.status(404).json({ message: 'Pet não encontrado!' })
+            return
+        }
+
+        //Check if the user owns the pet
+        const token = getToken(req)
+        const user = await getUserByToken(token)
+
+        if (pet.user._id.toString() !== user._id.toString()) { //Check if user id is equal to pet.user id
+            res.status(422).json({ message: 'Houve um problema em processar a sua solicitação, tente novamente!' })
+            return
+        }
+
+        //Delete pet
+        await Pet.findByIdAndRemove(id)
+        res.status(200).json({ message: 'Pet removido com sucesso!' })
+
+    }
+
 }

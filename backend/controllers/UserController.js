@@ -105,6 +105,7 @@ module.exports = class UserController {
         await createUserToken(user, req, res)
     }
 
+    //Check the currentuser
     static async checkUser(req, res) {
         let currentUser
 
@@ -128,6 +129,7 @@ module.exports = class UserController {
         res.status(200).send(currentUser)
     }
 
+    //Get user by id
     static async getUserById(req, res) {
         const id = req.params.id
         
@@ -150,6 +152,7 @@ module.exports = class UserController {
         res.status(200).json({ user })
     }
 
+    //Edit user 
     static async editUser(req, res) {
 
         const id = req.params.id
@@ -185,7 +188,7 @@ module.exports = class UserController {
             return
         }
 
-        //Checando para user nao subscrever email ja cadastrado no sistema 
+        //Checking for user not to subscribe email already registered in db
         const userExists = await User.findOne({ email: email })
 
         if (user.email !== email && userExists) {
