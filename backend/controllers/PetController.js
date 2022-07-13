@@ -7,7 +7,7 @@ const ObjectId = require('mongoose').Types.ObjectId
 
 module.exports = class PetController {
 
-    //Create Pet
+    //POST - Create Pet
     static async create(req, res) {
         const { name, age, weight, color } = req.body
         const images = req.files
@@ -71,7 +71,7 @@ module.exports = class PetController {
         }
     }
 
-    //Get all the pets
+    //GET -  all the pets
     static async getAll(req, res) {
         const pets = await Pet.find().sort('-createdAt')
         //find() - get all pets .sort('-createdAt) - ordena do mais novo p mais velho
@@ -81,7 +81,7 @@ module.exports = class PetController {
         })
     }
 
-    //Get all the pets I put for donation
+    //GET - all the pets I put for donation
     static async getAllUserPets(req, res) {
 
         //Get user from token
@@ -93,7 +93,7 @@ module.exports = class PetController {
         res.status(200).json({ pets })
     }
 
-    //Get all the pets I want to adopt
+    //GET - all the pets I want to adopt
     static async getAllUserAdoptions(req, res) {
         //Get user from token
         const token = getToken(req)
@@ -104,7 +104,7 @@ module.exports = class PetController {
         res.status(200).json({ pets })
     }
 
-    //Route to get info from pet
+    //GET - to get info from pet
     static async getPetById(req, res) {
 
         const id = req.params.id
@@ -126,7 +126,7 @@ module.exports = class PetController {
 
     }
 
-    //Route to delete pets
+    //DELETE - pets
     static async removePetById(req, res) {
         const id = req.params.id
 
@@ -159,7 +159,7 @@ module.exports = class PetController {
 
     }
 
-    //Uptade pet
+    //POST - Uptade pet
     static async updatePet(req, res) {
         const id = req.params.id
         const { name, age, weight, color, available } = req.body
@@ -233,7 +233,7 @@ module.exports = class PetController {
         res.status(200).json({ message: '!Pet atualizado com sucesso!' })
     }
 
-    //Schedule a visit
+    //POST - Schedule a visit
     static async schedule(req, res) {
         const id = req.params.id
 
@@ -271,5 +271,34 @@ module.exports = class PetController {
         res.status(200).json({
             message: `A visita foi agendada com sucesso, entre em contato com ${pet.user.name} pelo telefone ${pet.user.phone}`
         })
+    }
+
+    //Conclude adoption
+    static async concludeAdoption(req, res){
+        const id = req.params.id
+
+        //Check if pet exists
+        const pet = await Pet.findOne({_id: id})
+        if(!pet) {
+            res.status(404).json({message: '!Pet não encontrado!'})
+            return
+        }
+ 
+        //Check if logged in user registered the pet
+        const token = getToken(req)
+        const user = await getUserByToken(token)
+        //Compare user.id && pet.user.id
+        if (pet.user._id.equals(user._id)) {
+            res.status(422).json({ message: '!Você não pode agendar uma visita com seu proprio Pet!' })
+            return
+        }
+        //Set state available
+        pet.available = false
+
+        await Pet.findByIdAndUpdate(id, pet)
+        res.status(200).json({
+            message: '!Parabéns! O cliclo de adoção foi finalizado com sucesso!'
+        })
+
     }
 }

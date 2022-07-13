@@ -10,7 +10,8 @@ const ObjectId = require('mongoose').Types.ObjectId
 
 
 module.exports = class UserController {
-
+    
+    //POST - register user
     static async register(req, res) {
         const { name, email, phone, password, confirmpassword } = req.body
 
@@ -69,6 +70,7 @@ module.exports = class UserController {
         }
     }
 
+    //POST - login user
     static async login(req, res) {
 
         const { email, password } = req.body
@@ -105,7 +107,7 @@ module.exports = class UserController {
         await createUserToken(user, req, res)
     }
 
-    //Check the currentuser
+    //GET - Check the currentuser
     static async checkUser(req, res) {
         let currentUser
 
@@ -129,7 +131,7 @@ module.exports = class UserController {
         res.status(200).send(currentUser)
     }
 
-    //Get user by id
+    //GET - user by id
     static async getUserById(req, res) {
         const id = req.params.id
         
@@ -152,7 +154,7 @@ module.exports = class UserController {
         res.status(200).json({ user })
     }
 
-    //Edit user 
+    //PATCH - Edit user 
     static async editUser(req, res) {
 
         const id = req.params.id
