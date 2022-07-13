@@ -273,7 +273,7 @@ module.exports = class PetController {
         })
     }
 
-    //Conclude adoption
+    //POST - Conclude adoption
     static async concludeAdoption(req, res){
         const id = req.params.id
 
