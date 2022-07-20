@@ -12,7 +12,7 @@ import {
 } from './components';
 
 //Public Routes
-import { Home, Register, Login } from './components'
+import { Home, Register, Login, Profile } from './pages'
 
 //Private Routes
 
@@ -29,6 +29,7 @@ const App = () => {
             <Route path="/login" exact element={<Login />} />
             <Route path="/register" exact element={<Register />} />
             <Route path="/" exact element={<Home />} />
+            <Route path="/user/profile" exact element={<Profile />} />
           </Routes>
         
         </Container>

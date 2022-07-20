@@ -43,14 +43,15 @@ export default function useAuth() {
     }
 
     async function login(user) {
-        let msgText = "Login realizado com sucesso!"
+        let msgText = 'Login realizado com sucesso!'
         let msgType = 'success'
 
         try {
 
-            const data = await api.post("/users/login", user).then(response => {
-                return response.data
-            })
+            const data = await api.post("/users/login", user)
+                .then(response => {
+                    return response.data
+                })
 
             await authUser(data)
 

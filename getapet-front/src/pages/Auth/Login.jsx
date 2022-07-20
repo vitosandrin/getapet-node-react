@@ -2,13 +2,13 @@ import { useState, useContext } from "react"
 import { Link } from "react-router-dom"
 
 //Global components
-import { Input } from '../../../components'
+import { Input } from '../../components'
 
 //Styles
-import styles from '../../form/styles.module.css'
+import styles from '../../components/form/styles.module.css'
 
 //Context
-import { Context } from '../../../context/UserContext'
+import { Context } from '../../context/UserContext'
 
 const Login = () => {
     
