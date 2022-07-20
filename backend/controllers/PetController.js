@@ -280,7 +280,7 @@ module.exports = class PetController {
         //Check if pet exists
         const pet = await Pet.findOne({_id: id})
         if(!pet) {
-            res.status(404).json({message: '!Pet não encontrado!'})
+            res.status(404).json({message: 'Pet não encontrado!'})
             return
         }
  
@@ -289,7 +289,7 @@ module.exports = class PetController {
         const user = await getUserByToken(token)
         //Compare user.id && pet.user.id
         if (pet.user._id.equals(user._id)) {
-            res.status(422).json({ message: '!Você não pode agendar uma visita com seu proprio Pet!' })
+            res.status(422).json({ message: 'Você não pode agendar uma visita com seu proprio Pet!' })
             return
         }
         //Set state available

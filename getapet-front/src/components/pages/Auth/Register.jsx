@@ -41,7 +41,7 @@ const Register = () => {
               handleOnChange={handleChange}
             />
             <Input
-              text="E-email"
+              text="E-mail"
               type="email"
               name="email"
               placeholder="Digite o seu E-mail"

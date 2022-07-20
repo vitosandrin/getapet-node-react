@@ -1,5 +1,5 @@
-import  { useContext } from "react"
-import {Link} from "react-router-dom"
+import { useContext } from "react"
+import { Link } from "react-router-dom"
 
 //Styles
 import styles from "./styles.module.css"
@@ -9,13 +9,13 @@ import { Context } from '../../../context/UserContext'
 
 const Navbar = () => {
 
-  const {authenticated, logout} = useContext(Context)
+  const { authenticated, logout } = useContext(Context)
 
   return (
     <nav className={styles.navbar}>
       <div className={styles.navbar_logo}>
         <img src={Logo} alt="get a pet" />
-        <h2>GET A PET</h2>
+        <h2>Get a Pet</h2>
       </div>
       <ul>
         <li>
