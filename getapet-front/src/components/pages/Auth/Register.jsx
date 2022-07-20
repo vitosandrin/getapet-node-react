@@ -14,12 +14,11 @@ const Register = () => {
   const [user, setUser] = useState({})
   const { register } = useContext(Context)
 
-  function handleChange(e){ //Get all elements from form
+  function handleChange(e){ //Get all elements from user - update prop name [] with target.value
     setUser({...user, [e.target.name]: e.target.value})
   }
-
   function handleSubmit(e){ 
-    e.preventDefault()
+    e.preventDefault() //Stop exe form
     register(user)
   }
 

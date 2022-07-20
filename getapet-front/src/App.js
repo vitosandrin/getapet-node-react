@@ -1,7 +1,15 @@
 import { BrowserRouter, Routes, Route } from "react-router-dom";
 
+//Context
+import { UserProvider } from './context/UserContext';
+
 //Global Components
-import { Container, Footer, Navbar } from './components';
+import {
+  Container,
+  Footer,
+  Navbar,
+  Message
+} from './components';
 
 //Public Routes
 import { Home, Register, Login } from './components'
@@ -11,15 +19,22 @@ import { Home, Register, Login } from './components'
 const App = () => {
   return (
     <BrowserRouter>
-      <Navbar />
-      <Container>
-        <Routes>
-          <Route path="/login" exact element={<Login />} />
-          <Route path="/register" exact element={<Register />} />
-          <Route path="/" exact element={<Home />} />
-        </Routes>
-      </Container>
-      <Footer />
+      <UserProvider>
+       
+        <Navbar />
+        <Message />
+        <Container>
+        
+          <Routes>
+            <Route path="/login" exact element={<Login />} />
+            <Route path="/register" exact element={<Register />} />
+            <Route path="/" exact element={<Home />} />
+          </Routes>
+        
+        </Container>
+        <Footer />
+
+      </UserProvider>
     </BrowserRouter>
   );
 }

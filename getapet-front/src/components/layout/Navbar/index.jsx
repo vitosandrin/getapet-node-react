@@ -1,13 +1,15 @@
-import React, { useContext } from "react"
+import  { useContext } from "react"
 import {Link} from "react-router-dom"
 
-//css
+//Styles
 import styles from "./styles.module.css"
 import Logo from "../../../assets/img/logo.png"
 
-//context
+import { Context } from '../../../context/UserContext'
 
-function Navbar() {
+const Navbar = () => {
+
+  const {authenticated, logout} = useContext(Context)
 
   return (
     <nav className={styles.navbar}>
@@ -19,14 +21,7 @@ function Navbar() {
         <li>
           <Link to="/">Adotar</Link>
         </li>
-      </ul>
-    </nav>
-  )
-}
-
-export default Navbar
-
-/*{
+        {
           authenticated ? (
             <>
               <li>
@@ -50,4 +45,10 @@ export default Navbar
               </li>
             </>
           )
-        } */
+        }
+      </ul>
+    </nav>
+  )
+}
+
+export default Navbar

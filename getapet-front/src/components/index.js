@@ -1,6 +1,7 @@
 export { default as Navbar } from './layout/Navbar'
 export { default as Footer } from './layout/Footer'
 export { default as Container } from './layout/Container'
+export { default as Message } from './layout/Message'
 
 export { default as Input  } from './form/Input'
 
