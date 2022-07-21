@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react'
-import { Link } from 'react-router-dom'
+import { Link, useLocation } from 'react-router-dom'
 import api from '../../../utils/api'
 
 //Styles
@@ -14,6 +14,15 @@ const MyPets = () => {
     const [pets, setPets] = useState([])
     const [token] = useState(localStorage.getItem('token') || '')
     const { setFlashMessage } = useFlashMessage()
+    const routePath = useLocation();
+
+    const onTop = () => {
+        window.scrollTo(0, 0);
+    }
+    useEffect(() => {
+        onTop()
+    }, [routePath]);
+
 
     useEffect(() => {
         api.get('/pets/mypets', {

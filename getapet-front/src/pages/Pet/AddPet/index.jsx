@@ -1,10 +1,10 @@
-import { useState } from 'react'
+import { useState, useEffect } from 'react'
 import api from '../../../utils/api'
 
 //Styles
 import styles from './styles.module.css'
 
-import { useNavigate } from 'react-router-dom'
+import { useNavigate, useLocation } from 'react-router-dom'
 //Hooks
 import useFlashMessage from '../../../hooks/useFlashMessage'
 
@@ -15,6 +15,15 @@ const AddPet = () => {
     const [token] = useState(localStorage.getItem('token') || '')
     const { setFlashMessage } = useFlashMessage()
     const navigate = useNavigate()
+    const routePath = useLocation();
+
+    const onTop = () => {
+        window.scrollTo(0, 0);
+    }
+    useEffect(() => {
+        onTop()
+    }, [routePath]);
+
 
     async function registerPet(pet) {
         let msgType = 'success'

@@ -1,3 +1,4 @@
+import { useLocation } from "react-router-dom"
 import api from "../../utils/api"
 //Hooks
 import { useState, useEffect } from "react"
@@ -16,6 +17,14 @@ const Profile = () => {
     const [token] = useState(localStorage.getItem('token') || '')
     const { setFlashMessage } = useFlashMessage()
     const [preview, setPreview] = useState("")
+    const routePath = useLocation();
+
+    const onTop = () => {
+        window.scrollTo(0, 0);
+    }
+    useEffect(() => {
+        onTop()
+    }, [routePath]);
 
 
     useEffect(() => {

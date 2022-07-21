@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react'
-import { useParams } from 'react-router-dom'
+import { useParams, useNavigate, useLocation } from 'react-router-dom'
 
 import api from '../../utils/api'
 
@@ -18,6 +18,16 @@ const EditPets = () => {
     const [token] = useState(localStorage.getItem('token'))
     const { id } = useParams()
     const { setFlashMessage } = useFlashMessage()
+    const navigate = useNavigate()
+    const routePath = useLocation();
+
+    const onTop = () => {
+        window.scrollTo(0, 0);
+    }
+    useEffect(() => {
+        onTop()
+    }, [routePath]);
+
 
     useEffect(() => {
 
@@ -60,6 +70,9 @@ const EditPets = () => {
         })
 
         setFlashMessage(data.message, msgType)
+        if (msgType !== 'error') {
+            navigate('/pet/mypets')
+        }
     }
 
     return (
