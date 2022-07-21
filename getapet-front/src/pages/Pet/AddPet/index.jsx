@@ -7,6 +7,7 @@ import styles from './styles.module.css'
 import { useNavigate } from 'react-router-dom'
 //Hooks
 import useFlashMessage from '../../../hooks/useFlashMessage'
+
 //Global Components
 import { PetForm } from '../../../components'
 
@@ -19,7 +20,7 @@ const AddPet = () => {
         let msgType = 'success'
 
         const formData = new FormData
-
+        //Get single pet and add to formdata, not body 
         await Object.keys(pet).forEach((key) => {
             if (key === 'images') {
 
@@ -28,6 +29,7 @@ const AddPet = () => {
                 }
 
             } else {
+                //With key.name append to pet.keyname
                 formData.append(key, pet[key])
             }
         })

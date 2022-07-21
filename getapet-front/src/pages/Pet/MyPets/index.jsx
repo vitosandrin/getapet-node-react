@@ -34,10 +34,10 @@ const MyPets = () => {
                 Authorization: `Bearer ${JSON.parse(token)}`
             }
         }).then(response => {
-
-            const updatedPets = pets.filter(pet => pet._id !== id) //pegar todos os pets menos o que tem o id passado como parametro
-            setPets(updatedPets) 
-            return response.data
+            //Get all pets filtering by id 
+            const updatedPets = pets.filter(pet => pet._id !== id) 
+            setPets(updatedPets) //Delete front  
+            return response.data //Delete back
 
         }).catch(err => {
             msgType = 'error'
@@ -48,7 +48,7 @@ const MyPets = () => {
     }
 
     async function conludeAdoption(id) {
-        let msgType = "success"
+        let msgType = 'success'
 
         const data = await api.patch(`/pets/conclude/${id}`, {
             headers: {
@@ -71,7 +71,7 @@ const MyPets = () => {
                     pets.map((pet) => (
                         <div key={pet._id} className={styles.petlist_row}>
                             <RoundedImage
-                                src={`http://localhost:5000/images/pets/${pet.images[0]}`}
+                                src={`${process.env.REACT_APP_API}/images/pets/${pet.images[0]}`}
                                 alt={pet.name}
                                 width="px75"
                             />

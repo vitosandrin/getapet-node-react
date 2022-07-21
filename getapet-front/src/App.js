@@ -12,7 +12,7 @@ import {
 } from './components';
 
 //Public Routes
-import { Home, Register, Login, Profile, MyPets } from './pages'
+import { Home, Register, Login, Profile, MyPets, EditPet } from './pages'
 import AddPet from "./pages/Pet/AddPet";
 
 //Private Routes
@@ -33,6 +33,7 @@ const App = () => {
             <Route path="/user/profile" exact element={<Profile />} />
             <Route path="/pet/mypets" exact element={<MyPets />} />
             <Route path="/pet/add" exact element={<AddPet />} />
+            <Route path="/pet/edit/:id" exact element={<EditPet />} />
           </Routes>
         
         </Container>
