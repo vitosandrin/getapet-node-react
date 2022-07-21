@@ -10,7 +10,8 @@ export default function useAuth() {
     const [authenticated, setAuthenticated] = useState(false)
     const { setFlashMessage } = useFlashMessage()
     const navigate = useNavigate()
-
+    
+    //Check if user is logged on page reload
     useEffect(() => {
 
         const token = localStorage.getItem('token')

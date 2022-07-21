@@ -19,7 +19,6 @@ const Profile = () => {
 
 
     useEffect(() => {
-
         api.get("/users/checkuser", {
             headers: {
                 Authorization: `Bearer ${JSON.parse(token)}`
@@ -28,11 +27,11 @@ const Profile = () => {
             setUser(response.data)
         })
 
-    }, [token])
+    }, [token]) //useEffect depends token to authorize user
 
     function onFileChange(e) {
         setPreview(e.target.files[0])
-        setUser({ ...user, [e.target.name]: e.target.files[0] })
+        setUser({ ...user, [e.target.name]: e.target.files[0] })//[0] index 1
     }
     function handleChange(e) {
         setUser({ ...user, [e.target.name]: e.target.value })
@@ -40,10 +39,10 @@ const Profile = () => {
 
     async function handleSubmit(e) {
         e.preventDefault()
-        let msgType = "success"
+        let msgType = 'success'
 
         const formData = new FormData()
-
+        //
         const userFormData = await Object.keys(user).forEach(key => {
             formData.append(key, user[key])
         })
@@ -56,18 +55,12 @@ const Profile = () => {
                 'Content-Type': 'multipart/form-data'
             }
         }).then(response => {
-
             return response.data
-
         }).catch(err => {
-
             msgType = 'error'
             return err.response.data
-
         })
-
         setFlashMessage(data.message, msgType)
-
     }
 
     return (
@@ -78,7 +71,7 @@ const Profile = () => {
                     <RoundedImage
                         src={
                             preview
-                                ? URL.createObjectURL(preview) //Process não está sendo execultado OBS: Resolver esse problema
+                                ? URL.createObjectURL(preview)
                                 : `http://localhost:5000/images/users/${user.image}`
                         }
                         alt={user.name}
