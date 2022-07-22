@@ -8,7 +8,7 @@ const PetForm = ({ petData, btnText, handleSubmit }) => {
     const colors = ['Branco', 'Preto', 'Cinza', 'Caramelo', 'Mesclado']
 
     function onFileChange(e) {
-        setPreview(Array.from(e.target.files)) //trasformando file listy em array
+        setPreview(Array.from(e.target.files)) //Transform file listy in array
         setPet({ ...pet, images: [...e.target.files] })
     }
     function handleChange(e) {
