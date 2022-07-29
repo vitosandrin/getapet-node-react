@@ -1,7 +1,7 @@
 import { useLocation } from "react-router-dom"
 import api from "../../utils/api"
 //Hooks
-import { useState, useEffect } from "react"
+import React, { useState, useEffect } from "react"
 import useFlashMessage from "../../hooks/useFlashMessage"
 
 //Styles

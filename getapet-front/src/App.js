@@ -1,3 +1,4 @@
+import React from "react";
 import { BrowserRouter, Routes, Route } from "react-router-dom";
 
 //Context
@@ -12,7 +13,7 @@ import {
 } from './components';
 
 //Public Routes
-import { Home, Register, Login, Profile, MyPets, EditPet } from './pages'
+import { Home, Register, Login, Profile, MyPets, EditPet, PetDetail, MyAdoptions } from './pages'
 import AddPet from "./pages/Pet/AddPet";
 
 //Private Routes
@@ -32,8 +33,10 @@ const App = () => {
             <Route path="/" exact element={<Home />} />
             <Route path="/user/profile" exact element={<Profile />} />
             <Route path="/pet/mypets" exact element={<MyPets />} />
+            <Route path="/pet/myadoptions" exact element={<MyAdoptions />} />
             <Route path="/pet/add" exact element={<AddPet />} />
             <Route path="/pet/edit/:id" exact element={<EditPet />} />
+            <Route path="/pet/:id" exact element={<PetDetail />} />
           </Routes>
         
         </Container>

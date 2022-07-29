@@ -1,3 +1,4 @@
+import React from 'react'
 import bus from '../utils/bus'
 
 export default function useFlashMessage() {
